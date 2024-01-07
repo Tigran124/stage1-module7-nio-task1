@@ -1,5 +1,6 @@
 package com.epam.mjc.nio;
 
+import java.io.*;
 import java.util.Objects;
 
 public class Profile {
@@ -9,8 +10,19 @@ public class Profile {
     private String email;
     private Long phone;
 
-    public Profile() {
-
+    public Profile(BufferedReader reader) throws IOException {
+        while (reader.ready()){
+            String[] line = reader.readLine().split(" ");
+            if (Objects.equals(line[0], "Name:")){
+                this.name = line[1];
+            }else if (Objects.equals(line[0], "Age:")){
+                this.age = Integer.valueOf(line[1]);
+            }else if (Objects.equals(line[0], "Email:")){
+                this.email = line[1];
+            }else if (Objects.equals(line[0], "Phone:")){
+                this.phone = Long.valueOf(line[1]);
+            }
+        }
     }
     public Profile(String name, Integer age, String email, Long phone) {
         this.name = name;
